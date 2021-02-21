@@ -35,7 +35,7 @@ class Strategy_Context
 
     public function mutual_method()
     {
-      return  $this->strategy->change_color();
+        return $this->strategy->change_color();
     }
 }
 
@@ -51,13 +51,9 @@ class ClassRed implements Strategy
 
     public function change_color()
     {
-
-        $classoptionplugin_options = get_option('plug_settings');
-        $url = $classoptionplugin_options['id_input_text_field_0'];
-
-    //    echo '<div class="animate"><p><a style="color:#ff0000" target="_blanket" href="' . esc_url($url) . '">' . esc_url($url) . '</a></p><br></div>';
-        echo 'class red run';
-
+        $options = get_option('plug_settings');
+        $url = $options['input_text_field_0'];
+        echo '<div class="animate"><p><a style="color:#ff0000" target="_blanket" href="' . esc_url($url) . '">' . esc_url($url) . '</a></p><br></div>';
     }
 }
 
@@ -66,48 +62,31 @@ class ClassGreen implements Strategy
 
     public function change_color()
     {
-
-        $classoptionplugin_options = get_option('plug_settings');
-        $url = $classoptionplugin_options['id_input_text_field_0'];
-
-     //   echo '<div class="animate"><p><a style="color:green" target="_blanket" href="' . esc_url($url) . '">' . esc_url($url) . '</a></p><br></div>';
-        echo 'class green run';
-
+        $options = get_option('plug_settings');
+        $url = $options['input_text_field_0'];
+        echo '<div class="animate"><p><a style="color:green" target="_blanket" href="' . esc_url($url) . '">' . esc_url($url) . '</a></p><br></div>';
     }
 }
 
 class ClassBlue implements Strategy
 {
 
-
     public function change_color()
     {
-
-
-        $classoptionplugin_options = get_option('plug_settings');
-        var_dump( $classoptionplugin_options);
-        $url = $classoptionplugin_options['input_text_field_0'];
-        var_dump( $url);
-
-
-      echo '<div class="animate"><p><a style="color:blue" target="_blanket" href="' . esc_url($url) . '">' . esc_url($url) . '</a></p><br>class blue run</div>';
-       // echo '';
-
+        $options = get_option('plug_settings');
+        $url = $options['input_text_field_0'];
+        echo '<div class="animate"><p><a style="color:blue" target="_blanket" href="' . esc_url($url) . '">' . esc_url($url) . '</a></p><br></div>';
     }
 }
 
 class ClassBlack implements Strategy
 {
 
-
     public function change_color()
     {
-
-        $classoptionplugin_options = get_option('option_settings');
-        $url = $classoptionplugin_options['id_input_text_field_0'];
-
-      echo 'class black run';
-
+        $options = get_option('plug_settings');
+        $url = $options['input_text_field_0'];
+        echo '<div class="animate"><p><a style="color:black" target="_blanket" href="' . esc_url($url) . '">' . esc_url($url) . '</a></p><br></div>';
     }
 }
 
@@ -145,33 +124,26 @@ class Paste_Link_Plugin
             case '1'://red
                 $context = new Strategy_Context(new ClassRed());
                 $add_link_shortcode = $context->mutual_method();
-                var_dump( $add_link_shortcode);
                 break;
             case '2'://blue
                 $context = new Strategy_Context(new ClassRed());
-                var_dump(  $context);
                 $context->setStrategy(new ClassBlue());
                 $add_link_shortcode = $context->mutual_method();
-                var_dump( $add_link_shortcode);
                 break;
             case '3'://green
                 $context = new Strategy_Context(new ClassRed());
-                var_dump(  $context);
                 $context->setStrategy(new ClassGreen());
                 $add_link_shortcode = $context->mutual_method();
-                var_dump( $add_link_shortcode);
                 break;
             case '4'://black
                 $context = new Strategy_Context(new ClassRed());
-                var_dump(  $context);
                 $context->setStrategy(new ClassBlack());
                 $add_link_shortcode = $context->mutual_method();
-                var_dump( $add_link_shortcode);
                 break;
         }
-var_dump( $add_link_shortcode);
 
-        return $add_link_shortcode . 'test shortcode';
+
+        return $add_link_shortcode;
     }
 
 
