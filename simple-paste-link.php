@@ -7,7 +7,7 @@
  * Version: 1.0
  * Author: Paweł Kalisz
  * Author URI:https://websitecreator.cba.pl
- * License:MIT
+ * License:https://www.gnu.org/licenses/old-licenses/gpl-2.0.en.html
  */
 
 use Main\Paste_Link_Plugin;
