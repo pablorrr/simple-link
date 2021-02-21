@@ -1,5 +1,5 @@
 <?php
-
+namespace Sub\Strategy;
 
 class Strategy_Context
 {
