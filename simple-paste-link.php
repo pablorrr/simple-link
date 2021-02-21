@@ -16,6 +16,95 @@ if (!function_exists('__return_false')) {
     require_once(ABSPATH . '/wp-includes/functions.php');
 }
 
+
+
+class Strategy_Context
+{
+
+    private $strategy;
+
+    public function __construct(Strategy $strategy)
+    {
+        $this->strategy = $strategy;
+    }
+
+
+    public function setStrategy(Strategy $strategy)
+    {
+        $this->strategy = $strategy;
+    }
+
+    public function mutual_method()
+    {
+        $this->strategy->change_color();
+    }
+}
+
+interface Strategy
+{
+    public function change_color();
+
+}
+
+
+class ClassRed implements Strategy
+{
+    public function change_color()
+    {
+
+        $this->classoptionplugin_options = get_option('plug_settings');
+        $url = $this->classoptionplugin_options['id_input_text_field_0'];
+
+        echo '<div class="animate"><p><a style="color:#ff0000" target="_blanket" href="' . esc_url($url) . '">' . esc_url($url) . '</a></p><br></div>';
+
+    }
+}
+
+class ClassGreen implements Strategy
+{
+    public function change_color()
+    {
+
+        $this->classoptionplugin_options = get_option('plug_settings');
+        $url = $this->classoptionplugin_options['id_input_text_field_0'];
+
+        echo '<div class="animate"><p><a style="color:green" target="_blanket" href="' . esc_url($url) . '">' . esc_url($url) . '</a></p><br></div>';
+
+    }
+}
+
+class ClassBlue implements Strategy
+{
+
+
+    public function change_color()
+    {
+
+
+        $this->classoptionplugin_options = get_option('option_settings');
+        $url = $this->classoptionplugin_options['id_input_text_field_0'];
+
+        echo '<div class="animate"><p><a style="color:blue" target="_blanket" href="' . esc_url($url) . '">' . esc_url($url) . '</a></p><br></div>';
+
+
+    }
+}
+
+class ClassBlack implements Strategy
+{
+
+
+    public function change_color()
+    {
+
+        $this->classoptionplugin_options = get_option('option_settings');
+        $url = $this->classoptionplugin_options['id_input_text_field_0'];
+
+        echo '<div class="animate"><p><a style="color:black" target="_blanket" href="' . esc_url($url) . '">' . esc_url($url) . '</a></p><br></div>';
+
+    }
+}
+
 class Paste_Link_Plugin
 {
 
@@ -47,17 +136,21 @@ class Paste_Link_Plugin
 
 
         switch ($color) {
-            case '1':
-                $add_link_shortcode = '<div><div class="animate"><p><a style="color:red" target="_blanket" href="' . esc_url($url) . '">' . esc_url($url) . '</a></p><br></div></div>';
+            case '1'://red
+                $context = new Strategy_Context(new ClassRed());
+                $add_link_shortcode =  $context->mutual_method();
                 break;
-            case '2':
-                $add_link_shortcode = '<div><div class="animate"><p><a style="color:blue" target="_blanket" href="' . esc_url($url) . '">' . esc_url($url) . '</a></p><br></div></div>';
+            case '2'://blue
+                $context = new Strategy_Context(new ClassRed());
+                $add_link_shortcode =  $context->setStrategy(new ClassBlue());
                 break;
-            case '3':
-                $add_link_shortcode = '<div><div class="animate"><p><a style="color:green" target="_blanket" href="' . esc_url($url) . '">' . esc_url($url) . '</a></p><br></div></div>';
+            case '3'://green
+                $context = new Strategy_Context(new ClassRed());
+                $add_link_shortcode =  $context->setStrategy(new ClassGreen());
                 break;
-            case '4':
-                $add_link_shortcode = '<div><div class="animate"><p><a style="color:black" target="_blanket" href="' . esc_url($url) . '">' . esc_url($url) . '</a></p><br></div></div>';
+            case '4'://black
+                $context = new Strategy_Context(new ClassRed());
+                $add_link_shortcode = $context ->setStrategy(new ClassBlack());
                 break;
         }
 
@@ -67,7 +160,6 @@ class Paste_Link_Plugin
 
 
     /**
-     *
      * sposob dodawania shortcoda na gutenberg: najpierw dodaj widget  shortcode gutenbera  potem wklj [paste] i zachowaj
      */
 
