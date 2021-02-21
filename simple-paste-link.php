@@ -16,79 +16,9 @@ if (!function_exists('__return_false')) {
     require_once(ABSPATH . '/wp-includes/functions.php');
 }
 
+define( 'SIMPLE_LINK_PATH', plugin_dir_path( __FILE__ ) );
 
-class Strategy_Context
-{
-
-    private $strategy;
-
-    public function __construct(Strategy $strategy)
-    {
-        $this->strategy = $strategy;
-    }
-
-
-    public function setStrategy(Strategy $strategy)
-    {
-        $this->strategy = $strategy;
-    }
-
-    public function mutual_method()
-    {
-        return $this->strategy->change_color();
-    }
-}
-
-interface Strategy
-{
-    public function change_color();
-
-}
-
-
-class ClassRed implements Strategy
-{
-
-    public function change_color()
-    {
-        $options = get_option('plug_settings');
-        $url = $options['input_text_field_0'];
-        echo '<div class="animate"><p><a style="color:#ff0000" target="_blanket" href="' . esc_url($url) . '">' . esc_url($url) . '</a></p><br></div>';
-    }
-}
-
-class ClassGreen implements Strategy
-{
-
-    public function change_color()
-    {
-        $options = get_option('plug_settings');
-        $url = $options['input_text_field_0'];
-        echo '<div class="animate"><p><a style="color:green" target="_blanket" href="' . esc_url($url) . '">' . esc_url($url) . '</a></p><br></div>';
-    }
-}
-
-class ClassBlue implements Strategy
-{
-
-    public function change_color()
-    {
-        $options = get_option('plug_settings');
-        $url = $options['input_text_field_0'];
-        echo '<div class="animate"><p><a style="color:blue" target="_blanket" href="' . esc_url($url) . '">' . esc_url($url) . '</a></p><br></div>';
-    }
-}
-
-class ClassBlack implements Strategy
-{
-
-    public function change_color()
-    {
-        $options = get_option('plug_settings');
-        $url = $options['input_text_field_0'];
-        echo '<div class="animate"><p><a style="color:black" target="_blanket" href="' . esc_url($url) . '">' . esc_url($url) . '</a></p><br></div>';
-    }
-}
+require_once( SIMPLE_LINK_PATH . 'strategy-classes.php');
 
 class Paste_Link_Plugin
 {
@@ -99,7 +29,7 @@ class Paste_Link_Plugin
     public function __construct()
     {
 
-        //rejestracja menuadmin
+        //register admin menu
         add_action('admin_menu', array($this, 'paste_link_add_admin_menu'));
         //options init
         add_action('admin_init', array($this, 'paste_link_settings_init'));
